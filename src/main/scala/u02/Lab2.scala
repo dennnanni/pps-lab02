@@ -8,7 +8,7 @@ object Lab2 extends App:
 
   // Task 4
   class Task4Test:
-    @Test def testExpressionCreation(): Unit = {
+    @Test def testLiteralEvaluation(): Unit = {
       val e = Expr.Literal(5)
       assertEquals(5, evaluate(e))
     }
