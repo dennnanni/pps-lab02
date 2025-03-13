@@ -13,6 +13,10 @@ object Lab2 extends App:
     val n2 = 2
     val negative1 = -3
     val negative2 = -2
+    val plus = "+"
+    val times = "*"
+    val openPar = "("
+    val closePar = ")"
 
     @Test def testLiteralEvaluation(): Unit = {
       val e = Literal(n1)
@@ -48,12 +52,14 @@ object Lab2 extends App:
 
     @Test def testAddToString(): Unit = {
       val e = Add(Literal(n1), Literal(n2))
-      assertEquals("(" + n1.toString + "+" + n2.toString + ")", show(e))
+      assertEquals(openPar + n1.toString + plus + n2.toString + closePar,
+        show(e))
     }
 
     @Test def testMultiplyToString(): Unit = {
       val e = Multiply(Literal(n1), Literal(n2))
-      assertEquals("(" + n1.toString + "*" + n2.toString + ")", show(e))
+      assertEquals(openPar + n1.toString + times + n2.toString + closePar,
+        show(e))
     }
 
     @Test def testLiteralWithNegativeValue(): Unit = {
@@ -71,19 +77,31 @@ object Lab2 extends App:
       assertEquals(negative1 * negative2, evaluate(e))
     }
 
+    @Test def testAddToStringWithNegativeValues(): Unit = {
+      val e = Add(Literal(negative1), Literal(negative2))
+      assertEquals(openPar * 2 + negative1 + closePar +
+        plus + openPar + negative2 + closePar * 2, show(e))
+    }
+
   enum Expr:
     case Literal(n: Int)
     case Add(e1: Expr, e2: Expr)
     case Multiply(e1: Expr, e2: Expr)
 
   object Expr:
+    val plus = "+"
+    val times = "*"
+    val openPar = "("
+    val closePar = ")"
+
     def evaluate(e: Expr): Int = e match
       case Literal(n) => n
       case Add(e1, e2) => evaluate(e1) + evaluate(e2)
       case Multiply(e1, e2) => evaluate(e1) * evaluate(e2)
 
     def show(e: Expr): String = e match
-      case Literal(n) => n.toString
-      case Add(e1, e2) => "(" + show(e1) + "+" + show(e2) + ")"
-      case Multiply(e1, e2) => "(" + show(e1) + "*" + show(e2) + ")"
+      case Literal(n) if n >= 0 => n.toString
+      case Literal(n) if n < 0 => openPar + n.toString + closePar
+      case Add(e1, e2) => openPar + show(e1) + plus + show(e2) + closePar
+      case Multiply(e1, e2) => openPar + show(e1) + times + show(e2) + closePar
 
