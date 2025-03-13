@@ -1,0 +1,91 @@
+// Test
+def curriedMult(x: Double)(y: Double): Double = x * y
+curriedMult(2, 3)
+
+Usando il currying nella definizione non si può più richiamare la funzione usando la virgola.
+
+
+// Test
+def sumAndMult(a: Double, b: Double)(c: Double): Boolean = (a + c) *
+b match
+     |  case n if n > 15 => true
+     |  case _ => false
+
+Non importa l'ordine in cui si usano i parametri di un metodo curried.
+
+
+// Test
+val stringa = "hello " +  "world"
+
+La concatenazione può essere fatta anche tramite +.
+
+
+// Test
+val i: (Int, Int => Int, Int => Int) => Int =
+     |     (n, f1, f2) => f1(f2(n))
+double: Int => Int = 2 * _
+i(6, double, _ + 1)
+
+Posso passare funzioni già definite come parametro in cui viene richiesta una funzione.
+
+
+// Esercizi
+// Positive come function literal
+val positive: Int => String = v => v match
+     | case n if n >= 0 => "positive"
+     | case _ => "negative"
+// Positive come function definition
+def positive(v: Int): String = v match
+     | case n if n >= 0 => "positive"
+     | case _ => "negative"
+
+// Neg con metodo
+def neg(f: String => Boolean): String => Boolean = s => !f(s)
+// Neg con function literal
+val neg: (String => Boolean) => (String => Boolean) = f => s => !f(s)
+// Neg generica
+def genericNeg[A](f: A => Boolean): A => Boolean = v => !f(v)
+genericNeg(x => x == 3)(4)
+
+// Currying
+val p1: Int => Int => Int => Boolean = x => y => z => x <= y && y == z
+p1(3)(3)(4) // true
+val p2: (Int, Int, Int) => Boolean = (x, y, z) => x <= y && y == z
+p2(3, 3, 5) // false
+def p3(x: Int)(y: Int)(z: Int): Boolean = x <= y && y == z
+p3(3)(3)(4)
+def p4(x: Int, y: Int, z: Int): Boolean = x <= y && y == z
+p4(3, 3, 4)
+
+// Compose con interi
+def compose(f: Int => Int, g: Int => Int): Int => Int = v => f(g(v))
+// Compose generico
+def compose[A, B, C](f: B => C, g: A => B): A => C = v => f(g(v))
+
+Perché la composizione funzioni in maniera generica i tipi di ritorno e dei parametri devono essere concordi.
+Inoltre, per utilizzare il compose generico bisogna specificare i tipi altrimenti non riesce a inferire il tipo.
+
+// Compose di tre funzioni
+def composeThree[A, B, C, D](f: C => D, g: B => C, h: A => B): A => D = x => f(g(h(x)))
+// Compose a tre riutilizzando compose a due
+def composeThree[A, B, C, D](f: C => D, g: B => C, h: A => B): A => D = x => compose(f, compose(g, h))(x)
+
+// Funzione ricorsiva per la potenza
+def power(base: Double, exponent: Int): Double = exponent match
+     | case 0 => 1
+     | case n if n > 0 => base * power(base, exponent - 1)
+// Potenza utilizzando tail recursion
+def power(base: Double, exponent: Int, acc: Double): Double = exponent match
+     | case 0 => acc
+     | case n if n > 0 => power(base, exponent - 1, base * acc)
+
+// Inversione di un numero
+// Helper function
+def buildNumber(n: Int, reversed: Int): Int = n match
+     | case n if n == 0 => reversed
+     | case _ => buildNumber(n / 10, reversed * 10 + n % 10)
+def reverseNumber(n: Int): Int = buildNumber(n, 0)
+
+
+
+
