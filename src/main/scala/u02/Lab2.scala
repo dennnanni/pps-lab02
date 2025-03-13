@@ -20,10 +20,10 @@ object Lab2 extends App:
 
   enum Expr:
     case Literal(n: Int)
-    case Add(n1: Expr, n2: Expr)
-    case Multiply(n1: Expr, n2: Expr)
+    case Add(e1: Expr, e2: Expr)
+    case Multiply(e1: Expr, e1: Expr)
 
   object Expr:
     def evaluate(e: Expr): Int = e match
       case Expr.Literal(n) => n
-      case Expr.Add(n1, n2) => evaluate(n1) + evaluate(n2g)
+      case Expr.Add(e1, e2) => evaluate(e1) + evaluate(e2)
