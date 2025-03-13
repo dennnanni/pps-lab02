@@ -2,6 +2,7 @@ package u02
 
 import org.junit.*
 import org.junit.Assert.*
+import u02.Lab2.Expr
 import u02.Lab2.Expr.*
 
 object Lab2 extends App:
@@ -21,6 +22,12 @@ object Lab2 extends App:
     @Test def testMultiplyEvaluationWithLiterals(): Unit = {
       val e = Expr.Multiply(Expr.Literal(3), Expr.Literal(2))
       assertEquals(6, evaluate(e))
+    }
+
+    @Test def testAddWithSubExpr(): Unit = {
+      val e = Expr.Add(Expr.Add(Expr.Literal(3), Expr.Literal(2)),
+        Expr.Multiply(Expr.Literal(3), Expr.Literal(2)))
+      assertEquals(11, evaluate(e))
     }
 
   enum Expr:
