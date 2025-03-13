@@ -11,6 +11,8 @@ object Lab2 extends App:
   class Task4Test:
     val n1 = 3
     val n2 = 2
+    val negative1 = -3
+    val negative2 = -2
 
     @Test def testLiteralEvaluation(): Unit = {
       val e = Literal(n1)
@@ -52,6 +54,21 @@ object Lab2 extends App:
     @Test def testMultiplyToString(): Unit = {
       val e = Multiply(Literal(n1), Literal(n2))
       assertEquals("(" + n1.toString + "*" + n2.toString + ")", show(e))
+    }
+
+    @Test def testLiteralWithNegativeValue(): Unit = {
+      val e = Literal(negative1)
+      assertEquals(negative1, evaluate(e))
+    }
+
+    @Test def testAddWithNegativeValues(): Unit = {
+      val e = Add(Literal(negative1), Literal(negative2))
+      assertEquals(negative1 + negative2, evaluate(e))
+    }
+
+    @Test def testMultiplyWithNegativeValues(): Unit = {
+      val e = Multiply(Literal(negative1), Literal(negative2))
+      assertEquals(negative1 * negative2, evaluate(e))
     }
 
   enum Expr:
