@@ -39,6 +39,11 @@ object Lab2 extends App:
       assertEquals((n1 + n2) * (n1 + n2), evaluate(e))
     }
 
+    @Test def testLiteralToString(): Unit = {
+      val e = Expr.Literal(n1)
+      assertEquals(n1.toString, show(e))
+    }
+
   enum Expr:
     case Literal(n: Int)
     case Add(e1: Expr, e2: Expr)
@@ -49,3 +54,7 @@ object Lab2 extends App:
       case Expr.Literal(n) => n
       case Expr.Add(e1, e2) => evaluate(e1) + evaluate(e2)
       case Expr.Multiply(e1, e2) => evaluate(e1) * evaluate(e2)
+
+    def show(e: Expr): String = e match
+      case Literal(n) => n.toString
+
