@@ -9,25 +9,34 @@ object Lab2 extends App:
 
   // Task 4
   class Task4Test:
+    val n1 = 3
+    val n2 = 2
+
     @Test def testLiteralEvaluation(): Unit = {
-      val e = Expr.Literal(5)
-      assertEquals(5, evaluate(e))
+      val e = Expr.Literal(n1)
+      assertEquals(n1, evaluate(e))
     }
 
     @Test def testAddEvaluationWithLiterals(): Unit = {
-      val e = Expr.Add(Expr.Literal(3), Expr.Literal(2))
-      assertEquals(5, evaluate(e))
+      val e = Expr.Add(Expr.Literal(n1), Expr.Literal(n2))
+      assertEquals(n1 + n2, evaluate(e))
     }
 
     @Test def testMultiplyEvaluationWithLiterals(): Unit = {
-      val e = Expr.Multiply(Expr.Literal(3), Expr.Literal(2))
-      assertEquals(6, evaluate(e))
+      val e = Expr.Multiply(Expr.Literal(n1), Expr.Literal(n2))
+      assertEquals(n1 * n2, evaluate(e))
     }
 
     @Test def testAddWithSubExpr(): Unit = {
-      val e = Expr.Add(Expr.Add(Expr.Literal(3), Expr.Literal(2)),
-        Expr.Multiply(Expr.Literal(3), Expr.Literal(2)))
-      assertEquals(11, evaluate(e))
+      val e = Expr.Add(Expr.Add(Expr.Literal(n1), Expr.Literal(n2)),
+        Expr.Multiply(Expr.Literal(n1), Expr.Literal(n2)))
+      assertEquals((n1 + n2) + n1 * n2, evaluate(e))
+    }
+
+    @Test def testMultiplyWithSubExpr(): Unit = {
+      val e = Expr.Multiply(Expr.Add(Expr.Literal(n1), Expr.Literal(n2)),
+        Expr.Add(Expr.Literal(n1), Expr.Literal(n2)))
+      assertEquals((n1 + n2) * (n1 + n2), evaluate(e))
     }
 
   enum Expr:
