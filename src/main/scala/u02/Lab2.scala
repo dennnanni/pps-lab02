@@ -11,7 +11,7 @@ import scala.annotation.tailrec
 
 object Lab2 extends App:
 
-  //Task 1
+  //Task 1 svolto da sola
   def curriedMult(x: Double)(y: Double): Double = x * y
   // curriedMult(2, 3)
   // Usando il currying nella definizione non si può più richiamare la funzione usando la virgola.
@@ -54,7 +54,7 @@ object Lab2 extends App:
 
   genericNeg(x => x == 3)(4)
 
-  // Task 2
+  // Task 2 svolto da sola
   // Currying
   val p1: Int => Int => Int => Boolean = x => y => z => x <= y && y == z
   p1(3)(3)(4) // true
@@ -83,7 +83,7 @@ object Lab2 extends App:
     x => composeGeneric(f, composeGeneric(g, h))(x)
 
   
-  // Task 3
+  // Task 3 svolto da sola
   // Funzione ricorsiva per la potenza
   def power(base: Double, exponent: Int): Double = exponent match
     case 0 => 1
@@ -105,7 +105,7 @@ object Lab2 extends App:
   def reverseNumber(n: Int): Int = buildNumber(n, 0)
 
 
-  // Task 4
+  // Task 4 svolto da sola
   class Task4Test:
     val n1 = 3
     val n2 = 2
@@ -193,7 +193,7 @@ object Lab2 extends App:
       case Multiply(e1, e2) => openPar + show(e1) + times + show(e2) + closePar
 
 
-  // Task 5 (ho riportato i test e le implementazioni che ho fatto io)
+  // Task 5 (ho riportato i test e le implementazioni che ho fatto io) svolto da sola
   class OptionalTest:
     val initValue = 0
     @Test def mapShouldReturnEmptyWhenEmpty(): Unit =
